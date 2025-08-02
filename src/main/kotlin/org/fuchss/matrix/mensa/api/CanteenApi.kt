@@ -1,13 +1,15 @@
 package org.fuchss.matrix.mensa.api
 
-import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.todayIn
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
 
 /**
  * This interface defines the minimum functionality that a canteen provides.
  */
+@ExperimentalTime
 interface CanteenApi {
     fun canteen(): Canteen
 

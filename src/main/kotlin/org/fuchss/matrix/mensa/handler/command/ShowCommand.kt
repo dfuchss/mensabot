@@ -10,7 +10,9 @@ import org.fuchss.matrix.bots.command.Command
 import org.fuchss.matrix.mensa.TranslationService
 import org.fuchss.matrix.mensa.api.CanteenApi
 import org.fuchss.matrix.mensa.handler.sendCanteenEventToRoom
+import kotlin.time.ExperimentalTime
 
+@ExperimentalTime
 class ShowCommand(
     private val canteens: List<CanteenApi>,
     private val translationService: TranslationService

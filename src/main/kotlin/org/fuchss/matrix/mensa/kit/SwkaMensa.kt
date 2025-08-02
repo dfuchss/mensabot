@@ -5,6 +5,7 @@ import io.ktor.client.call.body
 import io.ktor.client.request.request
 import io.ktor.http.HttpMethod
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.Month
 import org.fuchss.matrix.mensa.api.Canteen
 import org.fuchss.matrix.mensa.api.CanteenApi
 import org.fuchss.matrix.mensa.api.CanteenLine
@@ -13,7 +14,9 @@ import org.fuchss.matrix.mensa.numberOfWeek
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
 import org.slf4j.LoggerFactory
+import kotlin.time.ExperimentalTime
 
+@ExperimentalTime
 class SwkaMensa : CanteenApi {
     companion object {
         private val logger = LoggerFactory.getLogger(SwkaMensa::class.java)
@@ -30,12 +33,12 @@ class SwkaMensa : CanteenApi {
         val html = request(week)
 
         val document = Jsoup.parse(html)
-        val tableOfDay = document.select("h1:contains(${date.dayOfMonth.pad()}.${date.monthNumber.pad()}) + table")
+        val tableOfDay = document.select("h1:contains(${date.day.pad()}.${date.month.pad()}) + table")
         if (tableOfDay.isEmpty()) {
             return emptyList()
         }
         if (tableOfDay.size != 1) {
-            logger.error("Found more than one table for ${date.dayOfMonth.pad()}.${date.monthNumber.pad()}")
+            logger.error("Found more than one table for ${date.day.pad()}.${date.month.pad()}")
             return emptyList()
         }
 
@@ -114,3 +117,8 @@ class SwkaMensa : CanteenApi {
 }
 
 private fun Int.pad(): String = if (this < 10) "0$this" else this.toString()
+
+private fun Month.pad(): String {
+    val numberOfMonth = this.ordinal + 1
+    return if (numberOfMonth < 10) "0$numberOfMonth" else numberOfMonth.toString()
+}

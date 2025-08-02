@@ -14,7 +14,9 @@ import org.fuchss.matrix.mensa.api.CanteenApi
 import org.fuchss.matrix.mensa.api.CanteenLine
 import org.fuchss.matrix.mensa.api.Meal
 import org.jsoup.Jsoup
+import kotlin.time.ExperimentalTime
 
+@ExperimentalTime
 class MriMensa : CanteenApi {
     companion object {
         private const val MRI_WEBSITE = "https://casinocatering.de/speiseplan/"

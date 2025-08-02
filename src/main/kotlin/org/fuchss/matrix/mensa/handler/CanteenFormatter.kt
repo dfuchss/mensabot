@@ -7,9 +7,11 @@ import org.fuchss.matrix.mensa.TranslationService
 import org.fuchss.matrix.mensa.api.CanteenApi
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import kotlin.time.ExperimentalTime
 
 private val logger: Logger = LoggerFactory.getLogger(MatrixBot::class.java)
 
+@OptIn(ExperimentalTime::class)
 suspend fun sendCanteenEventToRoom(
     roomId: RoomId,
     matrixBot: MatrixBot,
@@ -29,7 +31,7 @@ suspend fun sendCanteenEventToRoom(
         }
 
         val mensa = canteen.canteen()
-        var title = if (mensa.link == null) "## ${mensa.name}\n" else "## [${mensa.name}](<${mensa.link}>)\n"
+        val title = if (mensa.link == null) "## ${mensa.name}\n" else "## [${mensa.name}](<${mensa.link}>)\n"
 
         var meals = ""
         for (l in mensaToday) {
