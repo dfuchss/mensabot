@@ -34,7 +34,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <main.class>org.fuchss.matrix.mensa.MainKt</main.class>
-        <matrix-bot-base.version>0.15.0</matrix-bot-base.version>
+        <matrix-bot-base.version>0.15.1</matrix-bot-base.version>
     </properties>
 
     <dependencyManagement>
@@ -72,6 +72,11 @@
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-test-junit5</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains.kotlinx</groupId>
+            <artifactId>kotlinx-datetime-jvm</artifactId>
+            <version>0.7.1</version>
         </dependency>
         <dependency>
             <groupId>org.jsoup</groupId>
