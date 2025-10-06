@@ -30,17 +30,17 @@ import java.util.Date
  * @param[translation] the configuration for translations (optional, alpha)
  */
 data class Config(
-    @JsonProperty override val prefix: String = "mensa",
-    @JsonProperty override val baseUrl: String,
-    @JsonProperty override val username: String,
-    @JsonProperty override val password: String,
-    @JsonProperty override val dataDirectory: String,
-    @JsonProperty override val admins: List<String>,
-    @JsonProperty override val users: List<String> = listOf(),
-    @JsonProperty val timeToSendUpdates: LocalTime,
-    @JsonProperty val subscribers: List<String>,
-    @JsonProperty val canteensForSubscribers: List<String> = listOf("adenauerring"),
-    @JsonProperty val translation: TranslationConfig? = null
+    @param:JsonProperty override val prefix: String = "mensa",
+    @param:JsonProperty override val baseUrl: String,
+    @param:JsonProperty override val username: String,
+    @param:JsonProperty override val password: String,
+    @param:JsonProperty override val dataDirectory: String,
+    @param:JsonProperty override val admins: List<String>,
+    @param:JsonProperty override val users: List<String> = listOf(),
+    @param:JsonProperty val timeToSendUpdates: LocalTime,
+    @param:JsonProperty val subscribers: List<String>,
+    @param:JsonProperty val canteensForSubscribers: List<String> = listOf("adenauerring"),
+    @param:JsonProperty val translation: TranslationConfig? = null
 ) : IConfig {
     companion object {
         private val log: Logger = LoggerFactory.getLogger(Config::class.java)

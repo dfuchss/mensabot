@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.fuchss</groupId>
         <artifactId>maven-parent</artifactId>
-        <version>0.22.3</version>
+        <version>0.22.4</version>
     </parent>
 
     <groupId>org.fuchss.matrix</groupId>
@@ -34,7 +34,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <main.class>org.fuchss.matrix.mensa.MainKt</main.class>
-        <matrix-bot-base.version>0.15.1</matrix-bot-base.version>
+        <matrix-bot-base.version>0.15.2</matrix-bot-base.version>
     </properties>
 
     <dependencyManagement>
@@ -50,11 +50,6 @@
     </dependencyManagement>
 
     <dependencies>
-        <dependency>
-            <groupId>com.vdurmont</groupId>
-            <artifactId>emoji-java</artifactId>
-            <version>5.1.1</version>
-        </dependency>
         <dependency>
             <groupId>dev.langchain4j</groupId>
             <artifactId>langchain4j</artifactId>
