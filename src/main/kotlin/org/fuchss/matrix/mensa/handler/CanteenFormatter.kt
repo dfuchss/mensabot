@@ -1,6 +1,6 @@
 package org.fuchss.matrix.mensa.handler
 
-import net.folivo.trixnity.core.model.RoomId
+import de.connect2x.trixnity.core.model.RoomId
 import org.fuchss.matrix.bots.MatrixBot
 import org.fuchss.matrix.bots.markdown
 import org.fuchss.matrix.mensa.TranslationService
