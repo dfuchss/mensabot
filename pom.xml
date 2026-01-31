@@ -10,7 +10,7 @@
 
     <groupId>org.fuchss.matrix</groupId>
     <artifactId>mensabot</artifactId>
-    <version>0.30.0</version>
+    <version>0.30.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>MensaBot</name>
 
