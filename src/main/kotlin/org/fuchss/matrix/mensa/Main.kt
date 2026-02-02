@@ -65,9 +65,9 @@ fun main() {
                 HelpCommand(config, "MensaBot") {
                     commands
                 },
-                QuitCommand(config),
-                LogoutCommand(config),
-                ChangeUsernameCommand(config),
+                QuitCommand(),
+                LogoutCommand(),
+                ChangeUsernameCommand(),
                 ShowCommand(canteenApis, translationService),
                 SubscribeCommand(config)
             )

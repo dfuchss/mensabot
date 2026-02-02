@@ -2,7 +2,7 @@ package org.fuchss.matrix.mensa.handler
 
 import de.connect2x.trixnity.core.model.RoomId
 import org.fuchss.matrix.bots.MatrixBot
-import org.fuchss.matrix.bots.markdown
+import org.fuchss.matrix.bots.helper.markdown
 import org.fuchss.matrix.mensa.TranslationService
 import org.fuchss.matrix.mensa.api.CanteenApi
 import org.slf4j.Logger

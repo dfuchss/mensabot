@@ -6,7 +6,7 @@ import de.connect2x.trixnity.core.model.UserId
 import de.connect2x.trixnity.core.model.events.m.room.RoomMessageEventContent
 import org.fuchss.matrix.bots.MatrixBot
 import org.fuchss.matrix.bots.command.Command
-import org.fuchss.matrix.bots.markdown
+import org.fuchss.matrix.bots.helper.markdown
 import org.fuchss.matrix.mensa.Config
 
 class SubscribeCommand(
