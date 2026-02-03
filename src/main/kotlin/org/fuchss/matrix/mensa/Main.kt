@@ -37,12 +37,13 @@ import kotlin.random.Random
 import kotlin.time.Duration.Companion.days
 import kotlin.time.ExperimentalTime
 
-private val logger: Logger = LoggerFactory.getLogger(MatrixBot::class.java)
+private lateinit var logger: Logger
 
 private lateinit var commands: List<Command>
 
 fun main() {
     Backend.set(DefaultBackend)
+    logger = LoggerFactory.getLogger(MatrixBot::class.java)
 
     runBlocking {
         val config = Config.load()
