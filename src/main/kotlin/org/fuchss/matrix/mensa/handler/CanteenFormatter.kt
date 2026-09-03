@@ -22,15 +22,15 @@ suspend fun sendCanteenEventToRoom(
     logger.info("Sending Mensa to Room ${roomId.full}")
 
     for (canteen in canteens) {
+        val mensa = canteen.canteen()
         val mensaToday = canteen.foodToday()
         val noFood = mensaToday.isEmpty() || mensaToday.all { (_, meals) -> meals.isEmpty() }
 
         if (noFood && scheduled) {
-            logger.debug("Skipping sending of mensa plan to {} as there will be no food today.", roomId)
-            return
+            logger.debug("Skipping sending of mensa plan of {} to {} as there will be no food today.", mensa.id, roomId)
+            continue
         }
 
-        val mensa = canteen.canteen()
         val title = if (mensa.link == null) "## ${mensa.name}\n" else "## [${mensa.name}](<${mensa.link}>)\n"
 
         var meals = ""

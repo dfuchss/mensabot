@@ -27,8 +27,8 @@ data class Meal(
     fun entry(): String {
         val emojis = mutableListOf<String>()
         addEmojis(emojis)
-        val prefix = emojis.joinToString("/")
-        return "$prefix $name"
+        if (emojis.isEmpty()) return name
+        return "${emojis.joinToString("/")} $name"
     }
 
     private fun addEmojis(emojis: MutableList<String>) {
