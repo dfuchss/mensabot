@@ -62,7 +62,7 @@ class MriMensa : CanteenApi {
             }
 
             val foods = entry.getElementsByClass("elementor-icon-list-item").toList().map { it.text().replace("•", "").trim() }
-            dateToFood[dateForEntry] = CanteenLine("", foods.map { toMeal(it) })
+            dateToFood[dateForEntry] = CanteenLine("", foods.map { toMeal(it) }.distinct())
             dateForEntry = dateForEntry.plus(DatePeriod(days = 1))
         }
         return dateToFood

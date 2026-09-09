@@ -108,6 +108,8 @@ class SwkaMensa : CanteenApi {
                 .select("tr")
                 .mapNotNull { parseMeal(it) }
                 .filterNot { it.name.contains(CLOSED_KEYWORD, ignoreCase = true) }
+                // A line may list the same meal more than once, e.g., in different portion sizes that only differ in their price
+                .distinct()
 
         return if (meals.isEmpty()) null else CanteenLine(name, meals)
     }

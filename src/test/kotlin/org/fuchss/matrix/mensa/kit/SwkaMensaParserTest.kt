@@ -123,6 +123,29 @@ class SwkaMensaParserTest {
     }
 
     @Test
+    fun `filters duplicated meals of a line`() {
+        // The "Schnitzelbar" served the Gnocchi in two portion sizes, i.e., the rows only differ in their price
+        val meals =
+            mealsOf(
+                """<td>[VG]</td><td class="first dot"><span class="bg"><b>Hausgemachte Gnocchi</b> (Sf,We)</span></td><td><span class="bg">3,85 &euro;</span></td>""",
+                """<td>[VG]</td><td class="first dot"><span class="bg"><b>Hausgemachte Gnocchi</b> (Sf,We)</span></td><td><span class="bg">3,55 &euro;</span></td>"""
+            )
+        assertEquals(listOf("Hausgemachte Gnocchi"), meals.map { it.name })
+    }
+
+    @Test
+    fun `keeps meals that only differ in their dietary markers`() {
+        val meals =
+            mealsOf(
+                """<td>[VG]</td><td class="first dot"><span class="bg"><b>Pasta</b> (We)</span></td>""",
+                """<td>[S]</td><td class="first dot"><span class="bg"><b>Pasta</b> (We)</span></td>"""
+            )
+        assertEquals(2, meals.size, "A meal with different dietary markers must not be dropped: $meals")
+        assertTrue(meals.any { it.vegan }, meals.toString())
+        assertTrue(meals.any { it.pork }, meals.toString())
+    }
+
+    @Test
     fun `ignores lines that are not considered`() {
         assertNull(linesAt(2026, 9, 3).line("Cafeteria (11-14 Uhr)"))
         assertNotNull(linesAt(2026, 9, 3).line("Linie 3"))
