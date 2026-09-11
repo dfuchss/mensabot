@@ -36,8 +36,7 @@ class SwkaMensaParserTest {
                 "Linie 3",
                 "Linie 4",
                 "Schnitzelbar",
-                "[pizza]werk Pizza (11-14 Uhr)",
-                "[pizza]werk Salate / Vorspeisen"
+                "[pizza]werk Pizza"
             ),
             lines.map { it.name }
         )
@@ -60,7 +59,14 @@ class SwkaMensaParserTest {
     @Test
     fun `omits the opening hours from the name of a line`() {
         val lines = linesAt(2026, 9, 4).map { it.name }
-        assertTrue(lines.contains("[pizza]werk Pizza (11-14 Uhr)"), "Opening hours are not normalized: $lines")
+        assertTrue(lines.contains("[pizza]werk Pizza"), "Opening hours are not cropped: $lines")
+        assertTrue(lines.none { it.contains("Uhr") }, "Opening hours leaked into the name of a line: $lines")
+    }
+
+    @Test
+    fun `ignores the salads of the pizzawerk`() {
+        val lines = linesAt(2026, 9, 3).map { it.name }
+        assertTrue(lines.none { it.contains("Salate") }, "The salads of the [pizza]werk are shown: $lines")
     }
 
     @Test
@@ -147,7 +153,7 @@ class SwkaMensaParserTest {
 
     @Test
     fun `ignores lines that are not considered`() {
-        assertNull(linesAt(2026, 9, 3).line("Cafeteria (11-14 Uhr)"))
+        assertNull(linesAt(2026, 9, 3).line("Cafeteria"))
         assertNotNull(linesAt(2026, 9, 3).line("Linie 3"))
     }
 

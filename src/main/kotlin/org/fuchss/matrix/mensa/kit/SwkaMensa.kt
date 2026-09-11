@@ -28,9 +28,10 @@ class SwkaMensa : CanteenApi {
             "https://www.sw-ka.de/de/hochschulgastronomie/speiseplan/mensa_adenauerring/?view=ok&c=adenauerring&STYLE=popup_plain&kw=%%%WoY%%%"
         private const val REQUEST_TIMEOUT_IN_MS = 30_000L
 
-        private val LINES_TO_CONSIDER = listOf("Linie ", "Schnitzel", "[pizza]werk", "[kœri]werk")
+        // The "[pizza]werk" also offers "Salate / Vorspeisen" as an own line, which we do not want to show
+        private val LINES_TO_CONSIDER = listOf("Linie ", "Schnitzel", "[pizza]werk Pizza", "[kœri]werk")
 
-        /** The header of a line may contain its opening hours on an own row, e.g., "[pizza]werk", "Pizza", "11-14 Uhr". */
+        /** The header of a line may contain its opening hours on an own row, e.g., "[pizza]werk", "Pizza", "11-14 Uhr". They are not part of the name. */
         private val OPENING_HOURS = Regex("""\d{1,2}([.:]\d{2})?\s*-\s*\d{1,2}([.:]\d{2})?\s*Uhr""")
 
         /** The allergens of a meal are appended to its name, e.g., "(1,Se,We)". */
@@ -115,7 +116,8 @@ class SwkaMensa : CanteenApi {
     }
 
     /**
-     * Build the name of a line from its header, e.g., "[pizza]werk<br>Pizza<br>11-14 Uhr" becomes "[pizza]werk Pizza (11-14 Uhr)".
+     * Build the name of a line from its header, e.g., "[pizza]werk<br>Pizza<br>11-14 Uhr" becomes "[pizza]werk Pizza".
+     * The opening hours of a line are dropped.
      */
     private fun nameOfLine(header: Element): String {
         // A <br> becomes a line break within the whole text of the header ..
@@ -127,9 +129,9 @@ class SwkaMensa : CanteenApi {
                 .filter { it.isNotBlank() }
         if (segments.isEmpty()) return header.text().trim()
 
-        val (openingHours, nameSegments) = segments.partition { OPENING_HOURS.matches(it) }
-        val name = nameSegments.joinToString(" ").ifBlank { segments.joinToString(" ") }
-        return if (openingHours.isEmpty()) name else "$name (${openingHours.joinToString(", ")})"
+        // A header that consists of nothing but opening hours is kept as is, otherwise the line would be nameless
+        val nameSegments = segments.filterNot { OPENING_HOURS.matches(it) }.ifEmpty { segments }
+        return nameSegments.joinToString(" ")
     }
 
     private fun parseMeal(row: Element): Meal? {
